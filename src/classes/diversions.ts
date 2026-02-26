@@ -27,7 +27,7 @@ export default class Diversions {
    * return userdel/deluser
    */
   static deluser(familyId: string): string {
-    const userdelFamilies = ['archlinux', 'fedora', 'openmamba', 'opensuse', 'voidlinux']
+    const userdelFamilies = ['archlinux', 'fedora', 'gentoo', 'openmamba', 'opensuse', 'voidlinux']
     return userdelFamilies.includes(familyId) ? 'userdel' : 'deluser'
   }
 
@@ -109,6 +109,11 @@ export default class Diversions {
       case 'fedora':
       case 'openmamba': {
         kp += `root=live:CDLABEL=${volid} rd.live.image rd.live.dir=/live rd.live.squashimg=filesystem.squashfs enforcing=0`
+        break
+      }
+
+      case 'gentoo': {
+        kp += `root=live:CDLABEL=${volid} rd.live.image rd.live.dir=/live rd.live.squashimg=filesystem.squashfs`
         break
       }
 

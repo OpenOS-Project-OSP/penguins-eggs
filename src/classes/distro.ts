@@ -146,6 +146,35 @@ class Distro implements IDistro {
         break
       }
 
+      /**
+       * ChromiumOS family: ChromiumOS, ChromeOS, FydeOS/openFyde,
+       * ThoriumOS, WayneOS, Brunch, and derivatives.
+       * ChromiumOS is Gentoo-derived; uses Portage + Chromebrew.
+       */
+      case 'Chromiumos':
+      case 'ChromiumOS':
+      case 'Chromeos':
+      case 'ChromeOS':
+      case 'Fydeos':
+      case 'FydeOS':
+      case 'Openfyde':
+      case 'openFyde':
+      case 'Thoriumos':
+      case 'ThoriumOS':
+      case 'Wayneos':
+      case 'WayneOS':
+      case 'Brunch': {
+        this.familyId = 'chromiumos'
+        this.distroLike = 'ChromiumOS'
+        this.codenameId = 'rolling'
+        this.distroUniqueId = 'chromiumos'
+        this.liveMediumPath = '/run/initramfs/live/'
+        this.usrLibPath = '/usr/lib64/'
+        this.isCalamaresAvailable = false // krill is the primary installer
+
+        break
+      }
+
       default: {
         if (this.distroId.includes('Opensuse')) {
           this.familyId = 'opensuse'
@@ -406,6 +435,31 @@ class Distro implements IDistro {
                 }
               }
 
+              /**
+               * derivatives: family chromiumos
+               */
+              if (!found) {
+                let chromiumosDerivatives = path.resolve(__dirname, '../../conf/derivatives_chromiumos.yaml')
+                if (fs.existsSync('/etc/penguins-eggs.d/derivatives_chromiumos.yaml')) {
+                  chromiumosDerivatives = '/etc/penguins-eggs.d/derivatives_chromiumos.yaml'
+                }
+
+                if (fs.existsSync(chromiumosDerivatives)) {
+                  const content = fs.readFileSync(chromiumosDerivatives, 'utf8')
+                  const elem = yaml.load(content) as string[]
+                  if (elem.includes(this.distroId)) {
+                    this.familyId = 'chromiumos'
+                    this.distroLike = 'ChromiumOS'
+                    this.codenameId = 'rolling'
+                    this.distroUniqueId = 'chromiumos'
+                    this.liveMediumPath = '/run/initramfs/live/'
+                    this.usrLibPath = '/usr/lib64/'
+                    this.isCalamaresAvailable = false
+                    found = true
+                  }
+                }
+              }
+
               if (!found) {
                 console.log(`This distro ${this.distroId}/${this.codenameId} is not yet recognized!`)
                 console.log('')
@@ -418,6 +472,23 @@ class Distro implements IDistro {
             }
           }
         }
+      }
+    }
+
+    /**
+     * ChromiumOS fallback detection via /etc/lsb-release
+     * ChromiumOS may not set ID in /etc/os-release the standard way.
+     */
+    if (this.familyId === 'debian' && fs.existsSync('/etc/lsb-release')) {
+      const lsbContent = fs.readFileSync('/etc/lsb-release', 'utf8')
+      if (lsbContent.includes('CHROMEOS_RELEASE') || lsbContent.includes('CHROMEOS_AUSERVER')) {
+        this.familyId = 'chromiumos'
+        this.distroLike = 'ChromiumOS'
+        this.codenameId = 'rolling'
+        this.distroUniqueId = 'chromiumos'
+        this.liveMediumPath = '/run/initramfs/live/'
+        this.usrLibPath = '/usr/lib64/'
+        this.isCalamaresAvailable = false
       }
     }
 

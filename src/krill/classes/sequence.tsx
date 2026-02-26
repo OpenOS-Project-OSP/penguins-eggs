@@ -459,6 +459,15 @@ export default class Sequence {
       await exec('dmsetup remove_all')
     }
 
+    // ChromiumOS-specific setup: use cgpt for partitioning if available
+    if (this.distro.familyId === 'chromiumos') {
+      if (Utils.commandExists('cgpt')) {
+        Utils.warning('ChromiumOS: cgpt detected, CrOS partition layout available')
+      } else {
+        Utils.warning('ChromiumOS: cgpt not found, using standard GPT partitioning')
+      }
+    }
+
     // Set flags
     this.unattended = unattended
     this.nointeractive = nointeractive

@@ -138,6 +138,11 @@ export default class Diversions {
         break
       }
 
+      case 'chromiumos': {
+        kp += `root=live:CDLABEL=${volid} rd.live.image rd.live.dir=/live rd.live.squashimg=filesystem.squashfs cros_debug`
+        break
+      }
+
       default: {
         kp += ''
         break

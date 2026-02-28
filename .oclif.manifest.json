@@ -853,6 +853,143 @@
         "update.js"
       ]
     },
+    "android:produce": {
+      "aliases": [],
+      "args": {},
+      "description": "produce a bootable Android image from the running system",
+      "examples": [
+        "sudo eggs android produce",
+        "sudo eggs android produce --mode=iso",
+        "sudo eggs android produce --mode=iso --compression=zstd",
+        "sudo eggs android produce --mode=waydroid",
+        "sudo eggs android produce --mode=ota",
+        "sudo eggs android produce --output=/tmp/android.iso"
+      ],
+      "flags": {
+        "arch": {
+          "char": "a",
+          "description": "target architecture (auto-detected if omitted)",
+          "name": "arch",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "options": [
+            "x86_64",
+            "x86",
+            "arm64-v8a",
+            "armeabi-v7a",
+            "riscv64"
+          ],
+          "type": "option"
+        },
+        "compression": {
+          "char": "c",
+          "description": "compression for system.sfs",
+          "name": "compression",
+          "default": "zstd",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "options": [
+            "gzip",
+            "lz4",
+            "xz",
+            "zstd"
+          ],
+          "type": "option"
+        },
+        "help": {
+          "char": "h",
+          "description": "Show CLI help.",
+          "name": "help",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "mode": {
+          "char": "m",
+          "description": "output mode",
+          "name": "mode",
+          "default": "auto",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "options": [
+            "auto",
+            "iso",
+            "raw-img",
+            "waydroid",
+            "ota"
+          ],
+          "type": "option"
+        },
+        "output": {
+          "char": "o",
+          "description": "output file path",
+          "name": "output",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "verbose": {
+          "char": "v",
+          "name": "verbose",
+          "allowNo": false,
+          "type": "boolean"
+        }
+      },
+      "hasDynamicHelp": false,
+      "hiddenAliases": [],
+      "id": "android:produce",
+      "pluginAlias": "penguins-eggs",
+      "pluginName": "penguins-eggs",
+      "pluginType": "core",
+      "strict": true,
+      "enableJsonFlag": false,
+      "isESM": true,
+      "relativePath": [
+        "dist",
+        "commands",
+        "android",
+        "produce.js"
+      ]
+    },
+    "android:status": {
+      "aliases": [],
+      "args": {},
+      "description": "show Android/AOSP environment information",
+      "examples": [
+        "eggs android status",
+        "eggs android status --verbose"
+      ],
+      "flags": {
+        "help": {
+          "char": "h",
+          "description": "Show CLI help.",
+          "name": "help",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "verbose": {
+          "char": "v",
+          "description": "show all build.prop properties",
+          "name": "verbose",
+          "allowNo": false,
+          "type": "boolean"
+        }
+      },
+      "hasDynamicHelp": false,
+      "hiddenAliases": [],
+      "id": "android:status",
+      "pluginAlias": "penguins-eggs",
+      "pluginName": "penguins-eggs",
+      "pluginType": "core",
+      "strict": true,
+      "enableJsonFlag": false,
+      "isESM": true,
+      "relativePath": [
+        "dist",
+        "commands",
+        "android",
+        "status.js"
+      ]
+    },
     "export:appimage": {
       "aliases": [],
       "args": {},

@@ -2988,6 +2988,14 @@ packages:
     resolution: {integrity: sha512-gDKb8aZMDeD/tZWs9P6+q0J9Mwkdl6xMV8TjnGP3qJVJ06bdMgkbBlLU8IdfOsIsFz2BW1rNVT3XuNEl8zPAvw==}
     engines: {node: '>=8'}
 
+  penguins-eggs-integrations@https://codeload.github.com/Interested-Deving-1896/penguins-eggs-integrations/tar.gz/6f61122104370a444e9b7317f76a0b609b7d67de:
+    resolution: {tarball: https://codeload.github.com/Interested-Deving-1896/penguins-eggs-integrations/tar.gz/6f61122104370a444e9b7317f76a0b609b7d67de}
+    version: 0.1.0
+    engines: {node: '>=20'}
+    hasBin: true
+    peerDependencies:
+      js-yaml: ^4.1.0
+
   perrisbrewery@26.1.28:
     resolution: {integrity: sha512-HNPgDVAHzvvLp/6mNXagmt/kmpOtjrqlhccW1W64/OLvxW6obsTwN64+3wjzE2SoOzR2hUruuy5yLdRJLqOjWw==}
     engines: {node: '>=18.0.0'}

@@ -278,6 +278,90 @@
         "dad.js"
       ]
     },
+    "ipfs": {
+      "aliases": [],
+      "args": {
+        "action": {
+          "description": "action: publish, list, get, gateway, history, enable, disable, setup",
+          "name": "action",
+          "options": [
+            "publish",
+            "list",
+            "get",
+            "gateway",
+            "history",
+            "enable",
+            "disable",
+            "setup"
+          ],
+          "required": true
+        },
+        "path": {
+          "description": "ISO path (publish), brig path (get/history)",
+          "name": "path",
+          "required": false
+        }
+      },
+      "description": "manage IPFS distribution of eggs ISOs via brig",
+      "examples": [
+        "sudo eggs ipfs publish /home/eggs/egg-debian.iso",
+        "eggs ipfs list",
+        "eggs ipfs get /isos/egg-debian.iso --dest /tmp/",
+        "eggs ipfs gateway",
+        "sudo eggs ipfs enable"
+      ],
+      "flags": {
+        "help": {
+          "char": "h",
+          "description": "Show CLI help.",
+          "name": "help",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "dest": {
+          "char": "d",
+          "description": "destination path for get",
+          "name": "dest",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "backend": {
+          "description": "IPFS backend: brig, raw-ipfs, ipgit",
+          "name": "backend",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "remote": {
+          "description": "brig remote name",
+          "name": "remote",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "verbose": {
+          "char": "v",
+          "name": "verbose",
+          "allowNo": false,
+          "type": "boolean"
+        }
+      },
+      "hasDynamicHelp": false,
+      "hiddenAliases": [],
+      "id": "ipfs",
+      "pluginAlias": "penguins-eggs",
+      "pluginName": "penguins-eggs",
+      "pluginType": "core",
+      "strict": true,
+      "enableJsonFlag": false,
+      "isESM": true,
+      "relativePath": [
+        "dist",
+        "commands",
+        "ipfs.js"
+      ]
+    },
     "kill": {
       "aliases": [],
       "args": {},
@@ -475,6 +559,79 @@
         "dist",
         "commands",
         "krill.js"
+      ]
+    },
+    "lfs": {
+      "aliases": [],
+      "args": {
+        "action": {
+          "description": "action: track, list, setup, enable, disable",
+          "name": "action",
+          "options": [
+            "track",
+            "list",
+            "setup",
+            "enable",
+            "disable"
+          ],
+          "required": true
+        },
+        "path": {
+          "description": "ISO path (track) or directory (list)",
+          "name": "path",
+          "required": false
+        }
+      },
+      "description": "manage git-lfs tracking for produced ISOs",
+      "examples": [
+        "sudo eggs lfs track /home/eggs/egg-debian-amd64.iso",
+        "eggs lfs list /home/eggs",
+        "sudo eggs lfs setup --server https://lfs.example.com",
+        "sudo eggs lfs enable"
+      ],
+      "flags": {
+        "help": {
+          "char": "h",
+          "description": "Show CLI help.",
+          "name": "help",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "remote": {
+          "description": "git remote name",
+          "name": "remote",
+          "default": "origin",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "server": {
+          "description": "LFS server URL",
+          "name": "server",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "verbose": {
+          "char": "v",
+          "name": "verbose",
+          "allowNo": false,
+          "type": "boolean"
+        }
+      },
+      "hasDynamicHelp": false,
+      "hiddenAliases": [],
+      "id": "lfs",
+      "pluginAlias": "penguins-eggs",
+      "pluginName": "penguins-eggs",
+      "pluginType": "core",
+      "strict": true,
+      "enableJsonFlag": false,
+      "isESM": true,
+      "relativePath": [
+        "dist",
+        "commands",
+        "lfs.js"
       ]
     },
     "love": {
@@ -721,6 +878,24 @@
           "multiple": false,
           "type": "option"
         },
+        "lfs": {
+          "description": "track produced ISO in git-lfs after build",
+          "name": "lfs",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "ipfs": {
+          "description": "publish produced ISO to IPFS via brig after build",
+          "name": "ipfs",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "snapshot": {
+          "description": "create BTRFS snapshots before/after build (requires BTRFS)",
+          "name": "snapshot",
+          "allowNo": false,
+          "type": "boolean"
+        },
         "release": {
           "description": "release: remove penguins-eggs, calamares and dependencies after installation",
           "name": "release",
@@ -776,6 +951,92 @@
         "dist",
         "commands",
         "produce.js"
+      ]
+    },
+    "st": {
+      "aliases": [],
+      "args": {
+        "action": {
+          "description": "action: package, keygen, verify, extract",
+          "name": "action",
+          "options": [
+            "package",
+            "keygen",
+            "verify",
+            "extract"
+          ],
+          "required": true
+        },
+        "path": {
+          "description": "ISO path (package/extract) or descriptor path (verify)",
+          "name": "path",
+          "required": false
+        }
+      },
+      "description": "produce System Transparency compatible boot artifacts from eggs ISOs",
+      "examples": [
+        "sudo eggs st package /home/eggs/egg-debian.iso --label my-distro --key /path/to/key.pem",
+        "eggs st keygen --output /etc/penguins-eggs.d/st-keys/",
+        "eggs st verify /tmp/st-output/descriptor.json --pubkey /path/to/key.pub",
+        "sudo eggs st extract /home/eggs/egg-debian.iso --output /tmp/components"
+      ],
+      "flags": {
+        "help": {
+          "char": "h",
+          "description": "Show CLI help.",
+          "name": "help",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "label": {
+          "description": "OS package label",
+          "name": "label",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "key": {
+          "description": "Ed25519 private key for signing",
+          "name": "key",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "pubkey": {
+          "description": "Ed25519 public key for verification",
+          "name": "pubkey",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "output": {
+          "char": "o",
+          "description": "output directory",
+          "name": "output",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "verbose": {
+          "char": "v",
+          "name": "verbose",
+          "allowNo": false,
+          "type": "boolean"
+        }
+      },
+      "hasDynamicHelp": false,
+      "hiddenAliases": [],
+      "id": "st",
+      "pluginAlias": "penguins-eggs",
+      "pluginName": "penguins-eggs",
+      "pluginType": "core",
+      "strict": true,
+      "enableJsonFlag": false,
+      "isESM": true,
+      "relativePath": [
+        "dist",
+        "commands",
+        "st.js"
       ]
     },
     "status": {

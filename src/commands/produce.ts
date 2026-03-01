@@ -16,6 +16,7 @@ import Distro from '../classes/distro.js'
 import Ovary from '../classes/ovary.js'
 import Utils from '../classes/utils.js'
 import { IAddons, IExcludes } from '../interfaces/index.js'
+import { exec } from '../lib/utils.js'
 import Config from './config.js'
 
 // _dirname

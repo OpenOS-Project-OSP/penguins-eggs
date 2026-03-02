@@ -283,6 +283,47 @@ export default class Produce extends Command {
         }
       }
 
+      /**
+       * ChromiumOS flavour: install selected browser before snapshotting
+       */
+      const crosFlavourId = flags['cros-flavour']
+      const crosBrowserRepo = flags['cros-browser-repo']
+      if (crosFlavourId) {
+        const distro = new Distro()
+        if (distro.familyId !== 'chromiumos') {
+          Utils.warning(`--cros-flavour is only supported on ChromiumOS (detected: ${distro.familyId})`)
+          process.exit(1)
+        }
+
+        const { getFlavour, createCustomFlavour, installFlavour, getFlavourBranding, listDesktopFlavours } = await import('../classes/ovary.d/cros_flavour.js')
+
+        let flavour = getFlavour(crosFlavourId)
+        if (!flavour && crosFlavourId === 'custom') {
+          if (!crosBrowserRepo) {
+            Utils.warning('--cros-browser-repo is required when using --cros-flavour=custom')
+            process.exit(1)
+          }
+          flavour = createCustomFlavour(crosBrowserRepo)
+        }
+
+        if (!flavour) {
+          Utils.warning(`Unknown ChromiumOS flavour: ${crosFlavourId}. Available: ${listDesktopFlavours().join(', ')}`)
+          process.exit(1)
+        }
+
+        Utils.warning(`ChromiumOS flavour: ${flavour.name}`)
+        await installFlavour(flavour, crosBrowserRepo)
+
+        // Apply branding to basename/prefix if not explicitly set
+        const branding = getFlavourBranding(flavour)
+        if (!flags.basename) {
+          basename = branding.isoPrefix
+        }
+        if (!flags.prefix) {
+          prefix = ''
+        }
+      }
+
       const i = await Config.thatWeNeed(nointeractive, verbose, homecrypt)
       if (i.needUpdate || i.configurationInstall || i.configurationRefresh || i.distroTemplate) {
         await Config.install(i, nointeractive, verbose)

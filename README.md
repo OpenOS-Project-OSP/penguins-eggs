@@ -11,9 +11,9 @@
 [![ver](https://img.shields.io/npm/v/penguins-eggs.svg)](https://npmjs.org/package/penguins-eggs)
 [![Get it as AppImage](https://img.shields.io/badge/Get%20it%20as-AppImage-important.svg)](https://github.com/pieroproietti/penguins-eggs/releases)
 
-<a href="https://drive.google.com/drive/folders/19fwjvsZiW0Dspu2Iq-fQN0J-PDbKBlYY">
-  <img src="https://raw.githubusercontent.com/pieroproietti/penguins-eggs/master/assets/penguins-eggs-logo.png" width="280" height="300" alt="CD-ROM">
-</a>
+![Penguins-Eggs Dark Variant](assets/Penguins-Eggs_Dark-Variant-Illustration.png)
+
+![Penguins-Eggs Light Variant](assets/Penguins-Eggs_Light-Variant-Illustration.png)
 
 It took years of work to create the penguins-eggs, and I also incurred expenses
 for renting the site and subscribing to Google Gemini, for the artificial

@@ -23,7 +23,7 @@ jobs:
       DEPTH: ${{ inputs.depth || '50' }}
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Report current sizes
         run: |

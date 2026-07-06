@@ -29,9 +29,9 @@ jobs:
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
           node-version: '22'
 
@@ -41,7 +41,7 @@ jobs:
       - name: Install dependencies
         run: pnpm install --no-frozen-lockfile --ignore-scripts
 
-      - uses: jfrog/frogbot@v2
+      - uses: jfrog/frogbot@v3
         if: env.JF_URL != ''
         env:
           JF_URL: ${{ secrets.JF_URL }}
@@ -55,9 +55,9 @@ jobs:
     if: github.event_name == 'push' || github.event_name == 'schedule'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
           node-version: '22'
 
@@ -67,7 +67,7 @@ jobs:
       - name: Install dependencies
         run: pnpm install --no-frozen-lockfile --ignore-scripts
 
-      - uses: jfrog/frogbot@v2
+      - uses: jfrog/frogbot@v3
         if: env.JF_URL != ''
         env:
           JF_URL: ${{ secrets.JF_URL }}

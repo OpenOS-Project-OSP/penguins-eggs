@@ -16,7 +16,7 @@ jobs:
       contents: write  # Changed from read to write
     steps:
       - name: Checkout full history (detached HEAD)
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
           persist-credentials: false

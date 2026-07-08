@@ -60,7 +60,7 @@ jobs:
 
       - name: Set up QEMU (i386 / riscv64)
         if: ${{ matrix.qemu == true }}
-        uses: docker/setup-qemu-action@v3
+        uses: docker/setup-qemu-action@v4
         with:
           platforms: ${{ matrix.arch }}
 
@@ -127,7 +127,7 @@ jobs:
 
       - name: Set up QEMU (i386 / riscv64)
         if: ${{ matrix.qemu == true }}
-        uses: docker/setup-qemu-action@v3
+        uses: docker/setup-qemu-action@v4
         with:
           platforms: ${{ matrix.arch }}
 

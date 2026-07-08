@@ -22,7 +22,7 @@ jobs:
         image: alpine:latest
       steps:
       - name: 1. Checkout repository code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: 2. Prepare Build Environment
         run: |
@@ -56,7 +56,7 @@ jobs:
           sudo -u builder abuild -r
         working-directory: ./packaging/alpine
       - name: 7. Upload Package Artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: alpine-package
           path: /home/builder/packages/**/*.apk
@@ -72,7 +72,7 @@ jobs:
         image: archlinux
       steps:
       - name: 1. Checkout repository code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0       # Scarica tutta la cronologia (necessario per calcolare versioni/checksum)
           fetch-tags: true     # Assicura che i tag vengano scaricati
@@ -111,7 +111,7 @@ jobs:
           sudo -u builder GPGKEY=${{ secrets.GPG_KEY_ID }} bash -c "cd ./packaging/arch && updpkgsums && makepkg -s -f --noconfirm"
       
       - name: 6. Upload Arch Package Artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: arch-packages
           path: |
@@ -129,7 +129,7 @@ jobs:
         image: debian:13
       steps:
       - name: 1. Checkout repository code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: 2. Install Debian Build Dependencies
         run: |
           apt-get update
@@ -154,7 +154,7 @@ jobs:
           pnpm install
           pnpm deb -a
       - name: 5. Upload Debian Package Artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: debian-packages
           path: |
@@ -175,7 +175,7 @@ jobs:
         run: |
           dnf install -y --allowerasing git tar gzip
       - name: 1. Checkout repository code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
@@ -235,7 +235,7 @@ jobs:
           echo "rpm_path=$(find $HOME/rpmbuild/RPMS -name '*.rpm')" >> $GITHUB_OUTPUT
 
       - name: 9. Upload RPM Artifact for publishing
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: el9-rpm-for-repo
           path: ${{ steps.build.outputs.rpm_path }}
@@ -250,7 +250,7 @@ jobs:
         image: fedora:42
       steps:
       - name: 1. Checkout repository code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
       - name: 2. Install Build Dependencies (with jq)
@@ -300,7 +300,7 @@ jobs:
           rpmsign --addsign $(find $HOME/rpmbuild/RPMS -name '*.rpm')
           echo "rpm_path=$(find $HOME/rpmbuild/RPMS -name '*.rpm')" >> $GITHUB_OUTPUT
       - name: 8. Upload RPM Artifact for publishing
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: fedora-42-rpm-for-repo
           path: ${{ steps.build.outputs.rpm_path }}
@@ -321,7 +321,7 @@ jobs:
           sudo pacman-key --populate archlinux manjaro
 
       - name: 1. Checkout repository code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0       # Scarica tutta la cronologia (necessario per calcolare versioni/checksum)
           fetch-tags: true     # Assicura che i tag vengano scaricati
@@ -363,7 +363,7 @@ jobs:
         working-directory: ./packaging/manjaro
       
       - name: 7. Upload Package Artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: manjaro-package
           path: |
@@ -384,7 +384,7 @@ jobs:
           zypper --non-interactive refresh
           zypper --non-interactive install git tar gzip
       - name: 1. Checkout repository code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
@@ -451,7 +451,7 @@ jobs:
           echo "rpm_path=$(find $HOME/rpmbuild/RPMS -name '*.rpm')" >> $GITHUB_OUTPUT
 
       - name: 9. Upload RPM Artifact for publishing
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: opensuse-leap-rpm-for-repo
           path: ${{ steps.build.outputs.rpm_path }}
@@ -502,7 +502,7 @@ jobs:
           mkdir -p /mnt/deb-repo/dists/stable/main/binary-i386
 
       - name: 4. Download Debian artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: debian-packages
           # --- MODIFICA: Usiamo il percorso del container mappato ---
@@ -568,13 +568,13 @@ jobs:
           pacman -S --noconfirm pacman-contrib gnupg createrepo_c apk-tools
       
       - name: 3.1 Download Alpine artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: alpine-package
           path: /mnt/repos/alpine/
 
       - name: 3.2 Download Arch artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: arch-packages
           path: /mnt/repos/arch/
@@ -582,25 +582,25 @@ jobs:
       # - name: Download Debian artifacts -- no-needs --
 
       - name: 3.3 Download Fedora 42 artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: fedora-42-rpm-for-repo
           path: /mnt/repos/rpm/fedora/42/
 
       - name: 3.4 Download EL9 artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: el9-rpm-for-repo
           path: /mnt/repos/rpm/el9/
 
       - name: 3.5 Download Manjaro artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: manjaro-package
           path: /mnt/repos/manjaro/
 
       - name: 3.6 Download openSUSE artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: opensuse-leap-rpm-for-repo
           path: /mnt/repos/rpm/opensuse/leap/

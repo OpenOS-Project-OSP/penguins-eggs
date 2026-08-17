@@ -111,7 +111,7 @@ jobs:
     timeout-minutes: 355
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Install git-lfs
         run: |
@@ -163,4 +163,3 @@ jobs:
           JOB_STATUS: ${{ job.status }}
           INPUTS_JSON: ${{ toJSON(inputs) }}
         run: bash scripts/write-summary.sh
-

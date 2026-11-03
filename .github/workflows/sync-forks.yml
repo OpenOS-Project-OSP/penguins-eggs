@@ -56,7 +56,7 @@ jobs:
     timeout-minutes: 355
     steps:
       - name: Harden runner
-        uses: step-security/harden-runner@9af89fc71515a100421586dfdb3dc9c984fbf411 # ratchet:step-security/harden-runner@v2
+        uses: step-security/harden-runner@dc2769abcc0fcfbadfc1df54081c1608579ef6b2 # ratchet:step-security/harden-runner@v2
         with:
           egress-policy: audit
           disable-sudo: false
@@ -95,6 +95,10 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.SYNC_TOKEN }}
           GITHUB_OWNER: ${{ github.repository_owner }}
+          REPO_FILTER: ${{ inputs.repo_filter || '' }}
+          BRANCH_FILTER: ${{ inputs.branch_filter || '' }}
+          DRY_RUN: ${{ inputs.dry_run == true || github.event.inputs.dry_run == 'true' }}
+          FORCE: ${{ inputs.force == true || github.event.inputs.force == 'true' }}
         run: |
           source scripts/includes/quota-instrument.sh
           qi_begin

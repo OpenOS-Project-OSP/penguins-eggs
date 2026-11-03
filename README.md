@@ -1,7 +1,7 @@
-[update-readmes]   Mode: rewrite — migrating to template structure...
+[update-readmes] Mode: rewrite — migrating to template structure...
 # penguins-eggs
 
-[![Built with Ona](https://ona.com/build-with-ona.svg)](https://app.ona.com/#https://github.com/Interested-Deving-1896/penguins-eggs) [![KDE Eco](https://img.shields.io/badge/KDE%20Eco-certified-brightgreen?logo=kde&logoColor=white&style=flat-square)](https://eco.kde.org/) [![Blue Angel](https://img.shields.io/badge/Blue%20Angel-DE--UZ%20215-0055a4?style=flat-square)](https://www.blauer-engel.de/en/certification/criteria)
+ [![KDE Eco](https://img.shields.io/badge/KDE%20Eco-certified-brightgreen?logo=kde&logoColor=white&style=flat-square)](https://eco.kde.org/) [![Blue Angel](https://img.shields.io/badge/Blue%20Angel-DE--UZ%20215-0055a4?style=flat-square)](https://www.blauer-engel.de/en/certification/criteria)
 
 
 
@@ -24,13 +24,13 @@ The directory structure is as follows:
 
 ```plaintext
 penguins-eggs/
-├── bin/                 # Entry point for the CLI
-├── integrations/        # Distribution-specific integrations
-├── src/                 # Core application logic
-├── workflows/           # GitHub Actions workflows
-├── package.json         # Project metadata and dependencies
-├── README.md            # Documentation
-└── tests/               # Unit and integration tests
+├── bin/ # Entry point for the CLI
+├── integrations/ # Distribution-specific integrations
+├── src/ # Core application logic
+├── workflows/ # GitHub Actions workflows
+├── package.json # Project metadata and dependencies
+├── README.md # Documentation
+└── tests/ # Unit and integration tests
 ```
 <!-- AI:end:architecture -->
 
@@ -99,7 +99,7 @@ sudo eggs produce
 This repo is maintained in [`Interested-Deving-1896/penguins-eggs`](https://github.com/Interested-Deving-1896/penguins-eggs) and mirrored through:
 
 ```
-Interested-Deving-1896/penguins-eggs  ──►  OpenOS-Project-OSP/penguins-eggs  ──►  OpenOS-Project-Ecosystem-OOC/penguins-eggs
+Interested-Deving-1896/penguins-eggs ──► OpenOS-Project-OSP/penguins-eggs ──► OpenOS-Project-Ecosystem-OOC/penguins-eggs
 ```
 
 Changes flow downstream automatically via the hourly mirror chain in
